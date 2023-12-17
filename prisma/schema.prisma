@@ -1,0 +1,136 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Addressess {
+  id            Int             @id @default(autoincrement())
+  street        String
+  neighborhood  String
+  city          String
+  state         String
+  zip_code      String
+  Clients       Clients[]
+  collaborators collaborators[]
+}
+
+model Clients {
+  id             Int        @id @default(autoincrement())
+  name           String
+  lastname       String
+  cpf            String     @unique
+  phone          String
+  address_id     Int
+  address        Addressess @relation(fields: [address_id], references: [id])
+  address_number Int
+  email          String
+  ps             String
+  pets           Pets[]
+  Orders         Orders[]
+}
+
+model Pets {
+  id            Int      @id @default(autoincrement())
+  name          String
+  color         String
+  size          Int
+  specie        String
+  birthday_date DateTime
+  weight        Float
+  gender        String
+  ps            String
+  client_id     Int
+  client        Clients  @relation(fields: [client_id], references: [id])
+}
+
+model Permissions {
+  id        Int         @id @default(autoincrement())
+  name      String
+  positions Positions[]
+}
+
+model Positions {
+  id             Int             @id @default(autoincrement())
+  name           String          @unique
+  permissions_id Int
+  permission     Permissions     @relation(fields: [permissions_id], references: [id])
+  collaborators  collaborators[]
+}
+
+model collaborators {
+  id             Int        @id @default(autoincrement())
+  name           String
+  lastname       String
+  cpf            String     @unique
+  phone          String
+  email          String
+  username       String     @unique
+  password       String     @unique
+  address_number String
+  address_id     Int
+  adress         Addressess @relation(fields: [address_id], references: [id])
+  position_id    Int
+  position       Positions  @relation(fields: [position_id], references: [id])
+  Orders         Orders[]
+}
+
+model Orders {
+  id              Int              @id @default(autoincrement())
+  total           Float
+  payment_date    DateTime
+  buy_date        DateTime
+  client_id       Int
+  client          Clients          @relation(fields: [client_id], references: [id])
+  collaborator_id Int
+  collaborator    collaborators    @relation(fields: [collaborator_id], references: [id])
+  Products_order  Products_order[]
+  services_orders Services_order[]
+}
+
+model Products {
+  id                 Int              @id @default(autoincrement())
+  name               String
+  brand              String
+  sku                String
+  amount             String
+  measurement_unit   String
+  expired_date       DateTime
+  last_purchase_date DateTime
+  price              Float
+  has_stock          Boolean
+  ps                 String
+  Products_order     Products_order[]
+}
+
+model Products_order {
+  id         Int      @id @default(autoincrement())
+  product_id Int
+  product    Products @relation(fields: [product_id], references: [id])
+  order_id   Int
+  order      Orders   @relation(fields: [order_id], references: [id])
+}
+
+model Services {
+  id      Int            @id @default(autoincrement())
+  name    String
+  price   Float
+  discount Int
+  services_orders Services_order[]
+  @@map("services")
+}
+
+
+model Services_order {
+  service_id Int
+  order_id   Int
+  service    Services @relation(fields: [service_id], references: [id])
+  order      Orders   @relation(fields: [order_id], references: [id])
+  @@id([service_id, order_id])
+}
