@@ -1,4 +1,4 @@
-export class Product {
+export class ProductEntity {
   id: number;
   name: string;
   brand: string;
