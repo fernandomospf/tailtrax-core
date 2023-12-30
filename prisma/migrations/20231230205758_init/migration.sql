@@ -93,7 +93,7 @@ CREATE TABLE "Products" (
     "name" TEXT NOT NULL,
     "brand" TEXT NOT NULL,
     "sku" TEXT NOT NULL,
-    "amount" TEXT NOT NULL,
+    "amount" INTEGER NOT NULL,
     "measurement_unit" TEXT NOT NULL,
     "expired_date" TIMESTAMP(3) NOT NULL,
     "last_purchase_date" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,

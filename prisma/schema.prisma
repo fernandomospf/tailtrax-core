@@ -99,7 +99,7 @@ model Products {
   name               String
   brand              String
   sku                String
-  amount             String
+  amount             Int
   measurement_unit   String
   expired_date       DateTime
   last_purchase_date DateTime         @default(now())

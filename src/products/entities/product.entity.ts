@@ -3,7 +3,7 @@ export class ProductEntity {
   name: string;
   brand: string;
   sku: string;
-  amount: string;
+  amount: number;
   measurement_unit: string;
   expired_date: Date;
   last_purchase_date: Date;

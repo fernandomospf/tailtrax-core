@@ -4,7 +4,9 @@ import {
   IsNotEmpty,
   IsNumber,
   IsOptional,
+  IsPositive,
   IsString,
+  Min,
   MinLength,
 } from 'class-validator';
 
@@ -20,8 +22,10 @@ export class CreateProductDto {
   @IsString()
   sku: string;
 
-  @IsString()
-  amount: string;
+  @IsNumber()
+  @IsPositive()
+  @Min(1, { message: 'amount must be greater than zero (0).' })
+  amount: number;
 
   @IsString()
   @IsNotEmpty()
