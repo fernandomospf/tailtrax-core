@@ -1,9 +1,9 @@
 import {
   IsBoolean,
-  IsDate,
+  IsDateString,
   IsNotEmpty,
   IsNumber,
-  IsPositive,
+  IsOptional,
   IsString,
   MinLength,
 } from 'class-validator';
@@ -21,17 +21,17 @@ export class CreateProductDto {
   sku: string;
 
   @IsString()
-  @IsPositive()
   amount: string;
 
   @IsString()
   @IsNotEmpty()
   measurement_unit: string;
 
-  @IsDate()
+  @IsDateString()
   expired_date: Date;
 
-  @IsDate()
+  @IsDateString()
+  @IsOptional()
   last_purchase_date: Date;
 
   @IsNumber()
