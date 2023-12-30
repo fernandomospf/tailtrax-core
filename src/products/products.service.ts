@@ -8,6 +8,9 @@ export class ProductsService {
   constructor(private readonly repository: productsRepository) {}
 
   create(createProductDto: CreateProductDto) {
+    const { amount } = createProductDto;
+
+    if (+amount > 0) createProductDto.has_stock = true;
     return this.repository.create(createProductDto);
   }
 
