@@ -99,10 +99,10 @@ model Products {
   name               String
   brand              String
   sku                String
-  amount             String
+  amount             Int
   measurement_unit   String
   expired_date       DateTime
-  last_purchase_date DateTime
+  last_purchase_date DateTime         @default(now())
   price              Float
   has_stock          Boolean
   ps                 String
@@ -118,19 +118,20 @@ model Products_order {
 }
 
 model Services {
-  id      Int            @id @default(autoincrement())
-  name    String
-  price   Float
-  discount Int
+  id              Int              @id @default(autoincrement())
+  name            String
+  price           Float
+  discount        Int
   services_orders Services_order[]
+
   @@map("services")
 }
-
 
 model Services_order {
   service_id Int
   order_id   Int
   service    Services @relation(fields: [service_id], references: [id])
   order      Orders   @relation(fields: [order_id], references: [id])
+
   @@id([service_id, order_id])
 }
