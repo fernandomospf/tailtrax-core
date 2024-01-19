@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { productsRepository } from './repositories/products.repository';
+import { ProductsRepository } from './repositories/products.repository';
 
 @Injectable()
 export class ProductsService {
-  constructor(private readonly repository: productsRepository) {}
+  constructor(private readonly repository: ProductsRepository) {}
 
   create(createProductDto: CreateProductDto) {
     const { amount } = createProductDto;
