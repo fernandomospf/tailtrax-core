@@ -8,6 +8,7 @@ import {
   Delete,
   HttpException,
   HttpStatus,
+  HttpCode,
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
@@ -55,6 +56,7 @@ export class ProductsController {
   }
 
   @Delete(':id')
+  @HttpCode(204)
   async remove(@Param('id') id: string) {
     const removeProducts = await this.productsService.remove(+id);
     if (!removeProducts) {
