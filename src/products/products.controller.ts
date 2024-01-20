@@ -65,6 +65,6 @@ export class ProductsController {
         HttpStatus.NOT_FOUND,
       );
     }
-    return this.productsService.remove(+id);
+    return removeProducts;
   }
 }
