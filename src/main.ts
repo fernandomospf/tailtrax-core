@@ -12,5 +12,6 @@ async function bootstrap() {
     }),
   );
   await app.listen(process.env.DB_POST || 3000);
+  console.log(`Server is running on ${process.env.DB_POST || 3000}...`);
 }
 bootstrap();
