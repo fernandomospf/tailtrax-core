@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { CreateServiceDto } from './dto/create-service.dto';
-import { UpdateServiceDto } from './dto/update-service.dto';
 import { ServicesRepository } from './repositories/service.repository';
 
 @Injectable()
@@ -16,14 +15,16 @@ export class ServicesService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} service`;
-  }
-
-  update(id: number, UpdateServiceDto: UpdateServiceDto) {
-    return this.update(id, UpdateServiceDto);
+    if (!id || typeof id !== 'number') {
+      throw new Error('ID is required');
+    }
+    return this.repository.findOne(id);
   }
 
   remove(id: number) {
-    return `This action removes a #${id} service`;
+    if (!id || typeof id !== 'number') {
+      throw new Error('ID is required');
+    }
+    return this.repository.remove(id);
   }
 }
